@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Referência para a API do BrucerBanner</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="brucebanner" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='https://bitbucket.org/oqv/bruce_banner_sinatra'>Projeto no Bitbucket</a></li>
+            <li><a href='#'>API Staging - http://h-banners.oqvestir.com.br..oqvestir.com.br/api/v2</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introdu-o">Introdução</h1>
+
+<p>Essa API é utilizada para retornar os dados de SEO das páginas do site
+e também seus respectivos banners.</p>
+
+<h1 id="p-ginas-do-site">Páginas do Site</h1>
+
+<h2 id="listar-todas-as-p-ginas">Listar Todas as Páginas</h2>
+
+<p>Esse endpoint traz todos os banners de todos os sources de uma vez.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://h-brucebanner.oqvestir.com.br/api/v2/</code></p>
+
+<aside class="notice">
+  Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
+</aside>
+
+<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
+
+<table><thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valores Aceitos</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>URL da página que deseja trazer as informações. Ex: /novidades</td>
+</tr>
+<tr>
+<td>source_kind</td>
+<td>app_iphone, app_android, mobile, desktop</td>
+<td>Para qual dispositivo esse banner será servido.</td>
+</tr>
+<tr>
+<td>page_position</td>
+<td>string</td>
+<td>Em qual lugar da página esse banner deve aparecer.</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
+  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
+</aside>
+
+<blockquote>
+<p>Estrutura do JSON retornado:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"site_pages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"/novidades"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"Compre ROUPAS das melhores Marcas no OQVestir! blusas, vestidos, saias, calças, lingerie e muito mais. Aproveite!"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Lançamentos no OQVestir: roupas, acessórios, sapatos, moda praia, fitness da atual coleção da marca! Frete grátis, troca fácil e pagamento em até 10x sem juros. Aproveite..."</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="s2">"26.9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"9.9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"banners"</span><span class="p">:[]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"/animale/roupas"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"ROUPAS - Compre blusas, vestidos, saias, calças, lingerie e mais | OQVestir"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Compre ROUPAS das melhores Marcas no OQVestir! blusas, vestidos, saias, calças, lingerie e muito mais. Aproveite!"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="s2">"26.9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"9.9"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"banners"</span><span class="p">:[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12313</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Título do Banner"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banner_de_roupas_da_animale.jpg?63641184930"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"link_url"</span><span class="p">:</span><span class="s2">"https://www.oqvestir.com.br/qualquercoisa"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Descrição do banner"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"active"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="s2">"2021-01-01 00:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"page_position"</span><span class="p">:</span><span class="s2">"posicao_na_pagina"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="s2">"evento_GA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="s2">"GA CTR"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"page_position"</span><span class="p">:</span><span class="s2">"posicao_na_pagina"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"short_description"</span><span class="p">:</span><span class="s2">"descriçãozinha"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1313</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Título do Banner"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"o_arquivo.jpg?63641184930"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"link_url"</span><span class="p">:</span><span class="s2">"https://www.oqvestir.com.br/qualquercoisa"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Descrição do banner"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"active"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="s2">"2021-01-01 00:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"page_position"</span><span class="p">:</span><span class="s2">"posicao_na_pagina"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="err">:</span><span class="s2">"2016-05-25 03:00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="s2">"evento_GA"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="s2">"GA CTR"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"page_position"</span><span class="p">:</span><span class="s2">"posicao_na_pagina"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"short_description"</span><span class="p">:</span><span class="s2">"descriçãozinha"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+          <h1 id="errors">Errors</h1>
+
+<p>The brucebanner API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request sucks</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Your API key is wrong</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The specified kitten could not be found</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I&rsquo;m a teapot</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
