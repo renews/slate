@@ -110,7 +110,10 @@
       </div>
         <ul class="toc-footer">
             <li><a href='https://bitbucket.org/oqv/bruce_banner_sinatra'>Projeto no Bitbucket</a></li>
-            <li><a href='#'>API Staging - http://h-banners.oqvestir.com.br..oqvestir.com.br/api/v2</a></li>
+            <li><a href='https://h-banners.oqvestir.com.br/api/v2/site_page'>Staging V2</a></li>
+            <li><a href='https://h-banners.oqvestir.com.br/api/v3/site_page'>Staging V3</a></li>
+            <li><a href="https://brucebanner.oqvestir.com.br/api/v2/site_page">Production V2</a></li>
+            <li><a href="https://brucebanner.oqvestir.com.br/api/v3/site_page">Production V3</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -121,7 +124,9 @@
 <p>Essa API é utilizada para retornar os dados de SEO das páginas do site
 e também seus respectivos banners.</p>
 
-<h1 id="p-ginas-do-site">Páginas do Site</h1>
+<h1 id="v2">V2</h1>
+
+<p>Todos os resultados referentes à banners são ordenados pela data de ativação do mesmo.</p>
 
 <h2 id="listar-todas-as-p-ginas">Listar Todas as Páginas</h2>
 
@@ -129,10 +134,36 @@ e também seus respectivos banners.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://h-brucebanner.oqvestir.com.br/api/v2</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/</code></p>
 
 <aside class="notice">
   Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
+</aside>
+
+<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
+
+<table><thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valores Aceitos</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>URL da página que deseja trazer as informações. Ex: /novidades</td>
+</tr>
+<tr>
+<td>source_kind</td>
+<td>app_iphone, app_android, mobile, desktop</td>
+<td>Para qual dispositivo esse banner será servido.</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
+  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
 </aside>
 
 <blockquote>
@@ -169,7 +200,7 @@ e também seus respectivos banners.</p>
 </span></code></pre>
 
 <blockquote>
-<p>Exemplo de retorno quando  busca pelo source_kind=app_iphone</p>
+<p>Exemplo de retorno quando busca pelo source_kind=app_iphone</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -254,7 +285,7 @@ e também seus respectivos banners.</p>
 <blockquote>
 <p>Exemplo de resultado quando acha uma página pela URL e com BANNER.</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json"><code><span class="w">  </span><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/novidades"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olha essa descrição."</span><span class="p">,</span><span class="w">
@@ -284,43 +315,16 @@ e também seus respectivos banners.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
-
-<table><thead>
-<tr>
-<th>Parâmetro</th>
-<th>Valores Aceitos</th>
-<th>Descrição</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>url</td>
-<td>string</td>
-<td>URL da página que deseja trazer as informações. Ex: /novidades</td>
-</tr>
-<tr>
-<td>source_kind</td>
-<td>app_iphone, app_android, mobile, desktop</td>
-<td>Para qual dispositivo esse banner será servido.</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">
-  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
-  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
-</aside>
-
 <h2 id="onboarding-p-ginado">OnBoarding Páginado</h2>
 
-<p>Esse endpoint traz os banners páginados de acordo com os paramêtros.
-Não inclui informações das página do site.</p>
+<p>Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das página do site.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://h-brucebanner.oqvestir.com.br/api/v2/paginate</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/paginate</code></p>
 
 <aside class="notice">
-  É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
 </aside>
 
 <h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
@@ -537,14 +541,62 @@ Não inclui informações das página do site.</p>
 
 <h2 id="expira-o-de-cache">Expiração de CACHE</h2>
 
-<p>Expira um ou mais tipos de CACHE para a API de banners</p>
+<p>Expira um ou mais tipos de CACHE para a API de banners.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://h-brucebanner.oqvestir.com.br/api/v2/expire</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/expire</code></p>
 
 <aside class="warning">
-  Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
+    Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
+</aside>
+
+<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
+
+<table><thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valores Aceitos</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>urlpage</td>
+<td>string</td>
+<td>URL da página. Ex: /novidades</td>
+</tr>
+<tr>
+<td>source_kind</td>
+<td>app_iphone, app_android, mobile, desktop</td>
+<td>Para qual dispositivo esse banner será servido.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Exemplo de retorno quando o cache é limpo.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cache expirado"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h1 id="v3">V3</h1>
+
+<p>Todas as chamadas feitas para a versão devem conter o HEADER <code class="prettyprint">Accept-Platform</code>.
+Sem esse header qualquer chamada realizada para a V3 será considerada uma <code class="prettyprint">BAD REQUEST</code> com o código <code class="prettyprint">422</code>.
+Todos os resultados referentes à banners são ordenados pela data de ativação do mesmo.</p>
+
+<h2 id="listar-todas-as-p-ginas">Listar Todas as Páginas</h2>
+
+<p>Esse endpoint traz todos os banners de todos os sources de uma vez.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/</code></p>
+
+<aside class="notice">
+  HEADER Accept-Platform é obrigatório.
+  Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
 </aside>
 
 <h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
@@ -559,12 +611,425 @@ Não inclui informações das página do site.</p>
 <tr>
 <td>url</td>
 <td>string</td>
+<td>URL da página que deseja trazer as informações. Ex: /novidades</td>
+</tr>
+<tr>
+<td>source_kind</td>
+<td>app_iphone, app_android, mobile, desktop</td>
+<td>Para qual dispositivo esse banner será servido.</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
+  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
+</aside>
+
+<blockquote>
+<p>Exemplo de retorno quando acha somente BANNER ou o BANNER não possui páginas associadas:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"desc"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">339</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="s2">"20160920_desk_homeSmall1_outlet"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"image_url"</span><span class="p">:</span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160815_home-p_outlet.jpg?63641534517"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"link_url"</span><span class="p">:</span><span class="s2">"https://www.oqvestir.com.br/outlet"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"20160920_desk_homeSmall1_outlet"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="s2">"2016-09-20T00:04:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="s2">"2021-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="s2">"desktop-home_small"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="s2">"2016-09-19T20:01:57.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="s2">"2016-09-19T20:01:57.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"page_position"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"short_description"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Exemplo de retorno quando busca pelo source_kind=app_iphone</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">320</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Reebok! Até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_sale-reebok.jpg?14683595797"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/reebok"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Reebok! Até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T22:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:52:51.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">319</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tommy Hilfiger com até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_sale-tommy.jpg?14683595796"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/tommy-hilfiger"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tommy Hilfiger com até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:52:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">318</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in 7 For All Mankind!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_7forallmankind.jpg?14683595796"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/7-for-all-mankind"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in 7 For All Mankind!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T13:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:51:55.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Exemplo de resultado quando acha uma página pela url, mas não tem banner.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/novidades"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olha essa descrição."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pagina legal e cheia de novidades!"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Exemplo de resultado quando acha uma página pela URL e com BANNER.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/novidades"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olha essa descrição."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pagina legal e cheia de novidades!"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">275</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confira as novidades do verão 17"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160707_828x634_nov-verao.jpg?14683595778"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/novidades"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confira as novidades do verão 17"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-07T13:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-06T20:20:50.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:37.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h2 id="onboarding-p-ginado">OnBoarding Páginado</h2>
+
+<p>Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das páginas do site.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/paginate</code></p>
+
+<aside class="notice">
+  HEADER Accept-Platform é obrigatório.
+   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+</aside>
+
+<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
+
+<table><thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valores Aceitos</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>Número da página que você quer. Ex:. 1</td>
+</tr>
+<tr>
+<td>source_kind</td>
+<td>app_iphone, app_android, mobile, desktop</td>
+<td>Para qual dispositivo esse banner será servido.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Exemplo de retorno BANNERS páginados para ONBOARDING nos. Parâmetros usados: page=1&amp;source_kind=app_iphone</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">320</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Reebok! Até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_sale-reebok.jpg?14683595797"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/reebok"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Reebok! Até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T22:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:52:51.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">319</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tommy Hilfiger com até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_sale-tommy.jpg?14683595796"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/tommy-hilfiger"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tommy Hilfiger com até 40% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:52:23.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">318</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in 7 For All Mankind!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160712_828x634_7forallmankind.jpg?14683595796"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/7-for-all-mankind"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in 7 For All Mankind!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T13:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T14:51:55.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:39.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">295</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"On sale! Lolitta até 30% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160711_828x634_lolitta.jpg?14683595787"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/lolitta"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"On sale! Lolitta até 30% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T22:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-08T11:51:45.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">294</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isolda com até 50% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160711_828x634_isolda.jpg?14683595786"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/isolda"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isolda com até 50% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-08T11:51:18.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">293</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Bobstore até 60% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160711_828x634_bobstore.jpg?14683595786"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/bobstore"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sale Bobstore até 60% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-11T13:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-08T11:50:55.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">284</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Peças-chave jeans! Até 70% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160710_828x634_sale-jeans.jpg?14683595782"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/roupas/jeans?session=343&amp;page=2"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Peças-chave jeans! Até 70% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-10T22:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-07T18:27:47.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">283</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camisas on sale! Até 80% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160710_828x634_sale-camisas.jpg?14683595782"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/roupas/blusas-camisa?session=192&amp;page=2"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Camisas on sale! Até 80% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-10T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-07T18:27:22.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in acessórios!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160710_828x634_acessorios.jpg?14683595781"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/acessorios"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New in acessórios!"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-10T13:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-07T18:26:37.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">281</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"J.Chermann com até 50% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://d3k9vhbixcdyc5.cloudfront.net/original_20160708_828x634_j-chermann.jpg?14683595781"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.oqvestir.com.br/j-chermann"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"J.Chermann com até 50% OFF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"activation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-08T22:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiration_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2116-05-20T23:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"source_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app_iphone"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-07T17:46:28.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-07-12T21:39:38.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"site_page_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_event"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"ga_ctr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"page_position"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"short_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h2 id="expira-o-de-cache">Expiração de CACHE</h2>
+
+<p>Expira um ou mais tipos de CACHE para a API de banners.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/expire</code></p>
+
+<aside class="warning">
+    HEADER Accept-Platform é obrigatório.
+    Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
+</aside>
+
+<h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
+
+<table><thead>
+<tr>
+<th>Parâmetro</th>
+<th>Valores Aceitos</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>urlpage</td>
+<td>string</td>
 <td>URL da página. Ex: /novidades</td>
 </tr>
 <tr>
 <td>source_kind</td>
 <td>app_iphone, app_android, mobile, desktop</td>
-<td></td>
+<td>Para qual dispositivo esse banner será servido.</td>
 </tr>
 </tbody></table>
 
