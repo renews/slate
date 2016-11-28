@@ -134,7 +134,7 @@ e também seus respectivos banners.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/site_page</code></p>
 
 <aside class="notice">
   Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
@@ -545,7 +545,7 @@ e também seus respectivos banners.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/expire</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/site_page/expire</code></p>
 
 <aside class="warning">
     Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
@@ -592,7 +592,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/site_page</code></p>
 
 <aside class="notice">
   HEADER Accept-Platform é obrigatório.
@@ -603,17 +603,26 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <table><thead>
 <tr>
+<th>Tipo</th>
 <th>Parâmetro</th>
 <th>Valores Aceitos</th>
 <th>Descrição</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>header</td>
+<td>Accept-Plataform</td>
+<td>UID</td>
+<td>Identificador único da plataforma desejada.</td>
+</tr>
+<tr>
+<td>querystring</td>
 <td>url</td>
 <td>string</td>
 <td>URL da página que deseja trazer as informações. Ex: /novidades</td>
 </tr>
 <tr>
+<td>querystring</td>
 <td>source_kind</td>
 <td>app_iphone, app_android, mobile, desktop</td>
 <td>Para qual dispositivo esse banner será servido.</td>
@@ -780,7 +789,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/paginate</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/paginate</code></p>
 
 <aside class="notice">
   HEADER Accept-Platform é obrigatório.
@@ -791,17 +800,26 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <table><thead>
 <tr>
+<th>Tipo</th>
 <th>Parâmetro</th>
 <th>Valores Aceitos</th>
 <th>Descrição</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>header</td>
+<td>Accept-Plataform</td>
+<td>UID</td>
+<td>Identificador único da plataforma desejada.</td>
+</tr>
+<tr>
+<td>querystring</td>
 <td>page</td>
 <td>integer</td>
 <td>Número da página que você quer. Ex:. 1</td>
 </tr>
 <tr>
+<td>querystring</td>
 <td>source_kind</td>
 <td>app_iphone, app_android, mobile, desktop</td>
 <td>Para qual dispositivo esse banner será servido.</td>
@@ -1005,7 +1023,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/expire</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/site_page/expire</code></p>
 
 <aside class="warning">
     HEADER Accept-Platform é obrigatório.
@@ -1016,17 +1034,26 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <table><thead>
 <tr>
+<th>Tipo</th>
 <th>Parâmetro</th>
 <th>Valores Aceitos</th>
 <th>Descrição</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>urlpage</td>
+<td>header</td>
+<td>Accept-Plataform</td>
+<td>UID</td>
+<td>Identificador único da plataforma desejada.</td>
+</tr>
+<tr>
+<td>querystring</td>
+<td>url</td>
 <td>string</td>
 <td>URL da página. Ex: /novidades</td>
 </tr>
 <tr>
+<td>querystring</td>
 <td>source_kind</td>
 <td>app_iphone, app_android, mobile, desktop</td>
 <td>Para qual dispositivo esse banner será servido.</td>
