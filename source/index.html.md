@@ -202,7 +202,7 @@ Esse endpoint traz os banners páginados de acordo com os paramêtros. Não incl
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v2/banners/paginate`
 
 <aside class="notice">
    É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
@@ -619,7 +619,7 @@ Esse endpoint traz os banners páginados de acordo com os paramêtros. Não incl
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v3/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v3/banners/paginate`
 
 <aside class="notice">
   HEADER Accept-Platform é obrigatório.
