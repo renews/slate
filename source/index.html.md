@@ -30,7 +30,7 @@ Esse endpoint traz todos os banners de todos os sources de uma vez.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/`
+`GET https://h-banners.oqvestir.com.br/api/v2/site_page`
 
 <aside class="notice">
   Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
@@ -202,7 +202,7 @@ Esse endpoint traz os banners páginados de acordo com os paramêtros. Não incl
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v2/banners/paginate`
 
 <aside class="notice">
    É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
@@ -412,7 +412,7 @@ Expira um ou mais tipos de CACHE para a API de banners.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/expire`
+`GET https://h-banners.oqvestir.com.br/api/v2/site_page/expire`
 
 <aside class="warning">
     Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
@@ -445,7 +445,7 @@ Esse endpoint traz todos os banners de todos os sources de uma vez.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v3/`
+`GET https://h-banners.oqvestir.com.br/api/v3/site_page`
 
 <aside class="notice">
   HEADER Accept-Platform é obrigatório.
@@ -453,10 +453,11 @@ Esse endpoint traz todos os banners de todos os sources de uma vez.
 </aside>
 
 ### Parâmetros aceitos
-Parâmetro | Valores Aceitos | Descrição
---------- | --------------- | -----------
-url | string | URL da página que deseja trazer as informações. Ex: /novidades
-source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
+Tipo | Parâmetro | Valores Aceitos | Descrição
+--------- | --------- | --------------- | -----------
+header | Accept-Plataform | UID | Identificador único da plataforma desejada.
+querystring | url | string | URL da página que deseja trazer as informações. Ex: /novidades
+querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
 
 
 <aside class="warning">
@@ -618,7 +619,7 @@ Esse endpoint traz os banners páginados de acordo com os paramêtros. Não incl
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v3/banners/paginate`
 
 <aside class="notice">
   HEADER Accept-Platform é obrigatório.
@@ -626,10 +627,11 @@ Esse endpoint traz os banners páginados de acordo com os paramêtros. Não incl
 </aside>
 
 ### Parâmetros aceitos
-Parâmetro | Valores Aceitos | Descrição
---------- | --------------- | -----------
-page | integer | Número da página que você quer. Ex:. 1
-source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
+Tipo | Parâmetro | Valores Aceitos | Descrição
+--------- | --------- | --------------- | -----------
+header | Accept-Plataform | UID | Identificador único da plataforma desejada.
+querystring | page | integer | Número da página que você quer. Ex:. 1
+querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
 
 
 > Exemplo de retorno BANNERS páginados para ONBOARDING nos. Parâmetros usados: page=1&source_kind=app_iphone
@@ -829,7 +831,7 @@ Expira um ou mais tipos de CACHE para a API de banners.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/expire`
+`GET https://h-banners.oqvestir.com.br/api/v3/site_page/expire`
 
 <aside class="warning">
     HEADER Accept-Platform é obrigatório.
@@ -837,10 +839,11 @@ Expira um ou mais tipos de CACHE para a API de banners.
 </aside>
 
 ### Parâmetros aceitos
-Parâmetro | Valores Aceitos | Descrição
---------- | --------------- | -----------
-urlpage | string | URL da página. Ex: /novidades
-source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
+Tipo | Parâmetro | Valores Aceitos | Descrição
+--------- | --------- | --------------- | -----------
+header | Accept-Plataform | UID | Identificador único da plataforma desejada.
+querystring | url | string | URL da página. Ex: /novidades
+querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
 
 
 > Exemplo de retorno quando o cache é limpo.
