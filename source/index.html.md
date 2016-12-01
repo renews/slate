@@ -3,10 +3,10 @@ title: Referência para a API do BrucerBanner
 
 toc_footers:
   - <a href='https://bitbucket.org/oqv/bruce_banner_sinatra'>Projeto no Bitbucket</a>
-  - <a href='https://h-banners.oqvestir.com.br/api/v2/site_page'>Staging V2</a>
-  - <a href='https://h-banners.oqvestir.com.br/api/v3/site_page'>Staging V3</a>
-  - <a href="https://brucebanner.oqvestir.com.br/api/v2/site_page">Production V2</a>
-  - <a href="https://brucebanner.oqvestir.com.br/api/v3/site_page">Production V3</a>
+  - <a href='https://h-banners.oqvestir.com.br/api/v2/'>Staging V2</a>
+  - <a href='https://h-banners.oqvestir.com.br/api/v3/'>Staging V3</a>
+  - <a href="https://brucebanner.oqvestir.com.br/api/v2/">Production V2</a>
+  - <a href="https://brucebanner.oqvestir.com.br/api/v3/">Production V3</a>
 
 includes:
   - errors
@@ -204,7 +204,7 @@ Só traz informações da página de onboarding.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/site_page/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v2/banners/paginate`
 
 <aside class="notice">
    É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.  
@@ -440,7 +440,7 @@ source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo e
 # V3
 
 Todas as chamadas feitas para a versão devem conter o HEADER `Accept-Platform`.  
-Sem esse header qualquer chamada realizada para a V3 será considerada uma `BAD REQUEST` com o código `422`.  
+Sem esse header qualquer chamada realizada para a V3 será considerada uma `BAD REQUEST` com o código `400`.  
 Todos os resultados referentes à banners são ordenados pela data de ativação do mesmo.
 
 ## Listar Todas as Páginas
