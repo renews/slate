@@ -44,8 +44,9 @@ source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo e
 
 
 <aside class="warning">
-  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
-  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.  
+  Isso é custoso para o sistema e deve ser evitado.  
+  Usar a API v1 caso queira esse efeito.
 </aside>
 
 > Exemplo de retorno quando acha somente BANNER ou o BANNER não possui páginas associadas:
@@ -198,14 +199,16 @@ source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo e
 
 ## OnBoarding Páginado
 
-Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das página do site.
+Esse endpoint traz os banners páginados de acordo com os paramêtros.  
+Só traz informações da página de onboarding.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v2/banners/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v2/site_page/paginate`
 
 <aside class="notice">
-   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.  
+   A url usada nesse método, sempre será `/onboarding`
 </aside>
 
 ### Parâmetros aceitos
@@ -415,13 +418,13 @@ Expira um ou mais tipos de CACHE para a API de banners.
 `GET https://h-banners.oqvestir.com.br/api/v2/site_page/expire`
 
 <aside class="warning">
-    Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
+  Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
 </aside>
 
 ### Parâmetros aceitos
 Parâmetro | Valores Aceitos | Descrição
 --------- | --------------- | -----------
-urlpage | string | URL da página. Ex: /novidades
+url | string | URL da página. Ex: /novidades
 source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
 
 
@@ -429,14 +432,15 @@ source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo e
 
 ```json
 {
-  "message": "Cache expirado"
+  "message": "Cache expirado",
+  "key": "banner_platform"
 }
 ```
 
 # V3
 
-Todas as chamadas feitas para a versão devem conter o HEADER `Accept-Platform`.
-Sem esse header qualquer chamada realizada para a V3 será considerada uma `BAD REQUEST` com o código `422`.
+Todas as chamadas feitas para a versão devem conter o HEADER `Accept-Platform`.  
+Sem esse header qualquer chamada realizada para a V3 será considerada uma `BAD REQUEST` com o código `422`.  
 Todos os resultados referentes à banners são ordenados pela data de ativação do mesmo.
 
 ## Listar Todas as Páginas
@@ -448,7 +452,7 @@ Esse endpoint traz todos os banners de todos os sources de uma vez.
 `GET https://h-banners.oqvestir.com.br/api/v3/site_page`
 
 <aside class="notice">
-  HEADER Accept-Platform é obrigatório.
+  HEADER Accept-Platform é obrigatório.  
   Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
 </aside>
 
@@ -461,7 +465,7 @@ querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual
 
 
 <aside class="warning">
-  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.  
   Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
 </aside>
 
@@ -615,15 +619,17 @@ querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual
 
 ## OnBoarding Páginado
 
-Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das páginas do site.
+Esse endpoint traz os banners páginados de acordo com os paramêtros.  
+Só traz informações da página de onboarding.
 
 ### HTTP Request
 
-`GET https://h-banners.oqvestir.com.br/api/v3/banners/paginate`
+`GET https://h-banners.oqvestir.com.br/api/v3/site_page/paginate`
 
 <aside class="notice">
-  HEADER Accept-Platform é obrigatório.
-   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+  HEADER Accept-Platform é obrigatório.  
+  É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.  
+  A url usada nesse método, sempre será `/onboarding`  
 </aside>
 
 ### Parâmetros aceitos
@@ -633,8 +639,21 @@ header | Accept-Plataform | UID | Identificador único da plataforma desejada.
 querystring | page | integer | Número da página que você quer. Ex:. 1
 querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual dispositivo esse banner será servido.
 
+> Exemplo de resultado quando acha uma página pela url, mas não tem banner.
 
-> Exemplo de retorno BANNERS páginados para ONBOARDING nos. Parâmetros usados: page=1&source_kind=app_iphone
+```json
+{
+  "id": 1,
+  "url": "/onboarding",
+  "desc": "Olha essa descrição.",
+  "title": "Pagina legal e cheia de novidades!",
+  "inserted_at": "2016-10-03T19:28:09.000Z",
+  "updated_at": "2016-10-03T19:28:09.000Z",
+  "banners": []
+}
+```
+
+> Exemplo de retorno BANNERS páginados para ONBOARDING. Parâmetros usados: page=1&source_kind=app_iphone
 
 ```json
 {
@@ -834,7 +853,7 @@ Expira um ou mais tipos de CACHE para a API de banners.
 `GET https://h-banners.oqvestir.com.br/api/v3/site_page/expire`
 
 <aside class="warning">
-    HEADER Accept-Platform é obrigatório.
+    HEADER Accept-Platform é obrigatório.  
     Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
 </aside>
 
@@ -850,6 +869,7 @@ querystring | source_kind | app_iphone, app_android, mobile, desktop | Para qual
 
 ```json
 {
-  "message": "Cache expirado"
+  "message": "Cache expirado",
+  "key": "banner_platform"
 }
 ```
