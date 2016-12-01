@@ -162,8 +162,9 @@ e também seus respectivos banners.</p>
 </tbody></table>
 
 <aside class="warning">
-  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
-  Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.  
+  Isso é custoso para o sistema e deve ser evitado.  
+  Usar a API v1 caso queira esse efeito.
 </aside>
 
 <blockquote>
@@ -317,14 +318,16 @@ e também seus respectivos banners.</p>
 
 <h2 id="onboarding-p-ginado">OnBoarding Páginado</h2>
 
-<p>Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das página do site.</p>
+<p>Esse endpoint traz os banners páginados de acordo com os paramêtros.<br>
+Só traz informações da página de onboarding.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/paginate</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/site_page/paginate</code></p>
 
 <aside class="notice">
-   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.  
+   A url usada nesse método, sempre será `/onboarding`
 </aside>
 
 <h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
@@ -548,7 +551,7 @@ e também seus respectivos banners.</p>
 <p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v2/site_page/expire</code></p>
 
 <aside class="warning">
-    Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
+  Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
 </aside>
 
 <h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
@@ -561,7 +564,7 @@ e também seus respectivos banners.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>urlpage</td>
+<td>url</td>
 <td>string</td>
 <td>URL da página. Ex: /novidades</td>
 </tr>
@@ -576,14 +579,15 @@ e também seus respectivos banners.</p>
 <p>Exemplo de retorno quando o cache é limpo.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cache expirado"</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cache expirado"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banner_platform"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <h1 id="v3">V3</h1>
 
-<p>Todas as chamadas feitas para a versão devem conter o HEADER <code class="prettyprint">Accept-Platform</code>.
-Sem esse header qualquer chamada realizada para a V3 será considerada uma <code class="prettyprint">BAD REQUEST</code> com o código <code class="prettyprint">422</code>.
+<p>Todas as chamadas feitas para a versão devem conter o HEADER <code class="prettyprint">Accept-Platform</code>.<br>
+Sem esse header qualquer chamada realizada para a V3 será considerada uma <code class="prettyprint">BAD REQUEST</code> com o código <code class="prettyprint">422</code>.<br>
 Todos os resultados referentes à banners são ordenados pela data de ativação do mesmo.</p>
 
 <h2 id="listar-todas-as-p-ginas">Listar Todas as Páginas</h2>
@@ -595,7 +599,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 <p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/site_page</code></p>
 
 <aside class="notice">
-  HEADER Accept-Platform é obrigatório.
+  HEADER Accept-Platform é obrigatório.  
   Nenhum parâmetro é necessário, caso queira resultados filtrados, ver parâmetros disponíveis a baixo.
 </aside>
 
@@ -630,7 +634,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 </tbody></table>
 
 <aside class="warning">
-  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.
+  `source_kind` que não estiver na lista de valores aceitos, fará busca direta pelo banner para achar a página.  
   Isso é custoso para o sistema e deve ser evitado. Usar a API v1 caso queira esse efeito.
 </aside>
 
@@ -785,15 +789,17 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 
 <h2 id="onboarding-p-ginado">OnBoarding Páginado</h2>
 
-<p>Esse endpoint traz os banners páginados de acordo com os paramêtros. Não inclui informações das páginas do site.</p>
+<p>Esse endpoint traz os banners páginados de acordo com os paramêtros.<br>
+Só traz informações da página de onboarding.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/paginate</code></p>
+<p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/site_page/paginate</code></p>
 
 <aside class="notice">
-  HEADER Accept-Platform é obrigatório.
-   É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.
+  HEADER Accept-Platform é obrigatório.  
+  É OBRIGATÓRIO informar a página que você necessita, mesmo que seja a primeira.  
+  A url usada nesse método, sempre será `/onboarding`  
 </aside>
 
 <h3 id="par-metros-aceitos">Parâmetros aceitos</h3>
@@ -827,7 +833,21 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 </tbody></table>
 
 <blockquote>
-<p>Exemplo de retorno BANNERS páginados para ONBOARDING nos. Parâmetros usados: page=1&amp;source_kind=app_iphone</p>
+<p>Exemplo de resultado quando acha uma página pela url, mas não tem banner.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/onboarding"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Olha essa descrição."</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pagina legal e cheia de novidades!"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"inserted_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-03T19:28:09.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Exemplo de retorno BANNERS páginados para ONBOARDING. Parâmetros usados: page=1&amp;source_kind=app_iphone</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"banners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1026,7 +1046,7 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 <p><code class="prettyprint">GET https://h-banners.oqvestir.com.br/api/v3/site_page/expire</code></p>
 
 <aside class="warning">
-    HEADER Accept-Platform é obrigatório.
+    HEADER Accept-Platform é obrigatório.  
     Caso nenhum parâmetro seja passado, TODO o cache será eliminado.
 </aside>
 
@@ -1064,7 +1084,8 @@ Todos os resultados referentes à banners são ordenados pela data de ativação
 <p>Exemplo de retorno quando o cache é limpo.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cache expirado"</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cache expirado"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banner_platform"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
